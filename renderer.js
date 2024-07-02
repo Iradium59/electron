@@ -1,17 +1,25 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const { electron } = window;
+const notesList = document.getElementById('notesList');
+const noteInput = document.getElementById('noteInput');
+const saveButton = document.getElementById('saveButton');
 
-  function searchWeather() {
-    const city = document.getElementById('cityInput').value;
-    electron.send('searchWeather', city);
+saveButton.addEventListener('click', () => {
+  const note = noteInput.value;
+  if (note.trim() !== '') {
+    window.electronAPI.saveNote(note);
+    noteInput.value = '';
   }
-
-  electron.receive('weatherData', (data) => {
-    const weatherInfoDiv = document.getElementById('weatherInfo');
-    weatherInfoDiv.innerHTML = `
-      <h2>${data.city}</h2><p>Température : ${data.temperature} °C</p><p>Humidité : ${data.humidity}%</p><p>Vitesse du vent : ${data.windSpeed} m/s</p>
-    `;
-  });
-  const searchButton = document.getElementById('searchButton');
-  searchButton.addEventListener('click', searchWeather);
 });
+
+window.electronAPI.on('updateNotes', (notes) => {
+  notesList.innerHTML = '';
+  notes.forEach((note, index) => {
+    const noteItem = document.createElement('li');
+    noteItem.classList.add('note-item');
+    noteItem.innerHTML = `<span>${note}</span><button onclick="deleteNoteHandler(${index})">Supprimer</button>`;
+    notesList.appendChild(noteItem);
+  });
+});
+
+function deleteNoteHandler(index) {
+  window.electronAPI.deleteNote(index);
+}

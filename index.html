@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
+  <title>Notes App</title>
 </head>
 <body>
-  <div id="app">
-    <label for="cityInput">Entrez le nom de la ville :</label>
-    <input type="text" id="cityInput">
-    <button id="searchButton">Rechercher</button>
-    <div id="weatherInfo"></div>
+  <div>
+    <input type="text" id="noteInput" placeholder="Entrez une note...">
+    <button id="saveButton">Enregistrer</button>
   </div>
+  <ul id="notesList" class="notes-list"></ul>
+
   <script src="renderer.js"></script>
 </body>
 </html>

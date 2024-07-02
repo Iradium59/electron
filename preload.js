@@ -1,16 +1,9 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('electron', {
-  send: (channel, data) => {
-    let validChannels = ['searchWeather'];
-    if (validChannels.includes(channel)) {
-      ipcRenderer.send(channel, data);
-    }
-  },
-  receive: (channel, func) => {
-    let validChannels = ['weatherData'];
-    if (validChannels.includes(channel)) {
-      ipcRenderer.on(channel, (event, ...args) => func(...args));
-    }
+contextBridge.exposeInMainWorld('electronAPI', {
+  saveNote: (note) => ipcRenderer.send('saveNote', note),
+  deleteNote: (noteIndex) => ipcRenderer.send('deleteNote', noteIndex),
+  on: (channel, callback) => {
+    ipcRenderer.on(channel, (event, ...args) => callback(...args));
   }
 });

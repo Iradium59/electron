@@ -1,38 +1,69 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const fs = require('fs');
+
 let mainWindow;
+let notes = [];
+const dataPath = path.join(__dirname, 'notes.json'); 
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: __dirname + '/preload.js',
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: false,
       contextIsolation: true,
-      enableRemoteModule: false
-    }
+    },
   });
 
   mainWindow.loadFile('index.html');
+
+  try {
+    const data = fs.readFileSync(dataPath, 'utf-8');
+    notes = JSON.parse(data);
+  } catch (error) {
+    console.log('Erreur lors de la lecture du fichier des notes :', error);
+  }
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+    mainWindow.webContents.send('updateNotes', notes);
+  });
 }
 
-app.on('ready', createWindow);
+app.whenReady().then(createWindow);
 
-ipcMain.on('searchWeather', async (event, city) => {
-  try {
-    const apiKey = '26f3894df5b25b6e577e6463a38a1ce4';
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    const response = await fetch(url);
-    const weatherData = await response.json();
-
-    const formattedData = {
-      city: weatherData.name,
-      temperature: weatherData.main.temp,
-      humidity: weatherData.main.humidity,
-      windSpeed: weatherData.wind.speed
-    };
-
-    event.reply('weatherData', formattedData);
-  } catch (error) {
-    console.error('Erreur lors de la récupération des données:', error);
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
   }
 });
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});
+
+ipcMain.on('saveNote', (event, note) => {
+  notes.push(note);
+  saveNotesToFile();
+  mainWindow.webContents.send('updateNotes', notes);
+});
+
+ipcMain.on('deleteNote', (event, noteIndex) => {
+  if (noteIndex >= 0 && noteIndex < notes.length) {
+    notes.splice(noteIndex, 1);
+    saveNotesToFile();
+    mainWindow.webContents.send('updateNotes', notes);
+  }
+});
+
+function saveNotesToFile() {
+  try {
+    fs.writeFileSync(dataPath, JSON.stringify(notes));
+  } catch (error) {
+    console.log('Erreur lors de l\'écriture du fichier des notes :', error);
+  }
+}
