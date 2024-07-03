@@ -1,0 +1,53 @@
+[
+    {
+      "question": "Quel film a remporté l'Oscar du meilleur film en 1994?",
+      "correct_answer": "Forrest Gump",
+      "incorrect_answers": ["Pulp Fiction", "The Shawshank Redemption", "Quiz Show"]
+    },
+    {
+      "question": "Qui a réalisé le film 'Inception'?",
+      "correct_answer": "Christopher Nolan",
+      "incorrect_answers": ["Steven Spielberg", "Quentin Tarantino", "James Cameron"]
+    },
+    {
+      "question": "Dans quel film trouve-t-on le personnage de 'Jack Sparrow'?",
+      "correct_answer": "Pirates des Caraïbes",
+      "incorrect_answers": ["Le Seigneur des Anneaux", "Harry Potter", "Indiana Jones"]
+    },
+    {
+      "question": "Quel acteur joue le personnage principal dans 'Le Revenant'?",
+      "correct_answer": "Leonardo DiCaprio",
+      "incorrect_answers": ["Brad Pitt", "Tom Hardy", "Matt Damon"]
+    },
+    {
+      "question": "Quelle est la première règle du Fight Club?",
+      "correct_answer": "Ne parle jamais du Fight Club",
+      "incorrect_answers": ["Toujours parler du Fight Club", "Ne jamais se battre au Fight Club", "Ne jamais quitter le Fight Club"]
+    },
+    {
+      "question": "Quel film d'animation présente un poisson clown cherchant son fils?",
+      "correct_answer": "Le Monde de Nemo",
+      "incorrect_answers": ["Toy Story", "Les Indestructibles", "Ratatouille"]
+    },
+    {
+      "question": "Quel film a popularisé la réplique 'Je suis ton père'?",
+      "correct_answer": "Star Wars: L'Empire contre-attaque",
+      "incorrect_answers": ["Star Wars: Un nouvel espoir", "Star Wars: Le Retour du Jedi", "Star Wars: La Revanche des Sith"]
+    },
+    {
+      "question": "Quel film met en scène un robot nommé WALL-E?",
+      "correct_answer": "WALL-E",
+      "incorrect_answers": ["E.T.", "I, Robot", "Blade Runner"]
+    },
+    {
+      "question": "Dans quel film trouve-t-on le personnage de 'Neo'?",
+      "correct_answer": "Matrix",
+      "incorrect_answers": ["Inception", "Avatar", "Interstellar"]
+    },
+    {
+      "question": "Quel film présente un parc à thème de dinosaures recréé par clonage génétique?",
+      "correct_answer": "Jurassic Park",
+      "incorrect_answers": ["King Kong", "Godzilla", "La Planète des singes"]
+    }
+  ]
+  
