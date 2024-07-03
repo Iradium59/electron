@@ -6,7 +6,8 @@
   "scripts": {
     "tp1": "electron tp1/main.js",
     "tp2": "electron tp2/main.js",
-    "tp3": "electron tp3/main.js"
+    "tp3": "electron tp3/main.js",
+    "tp4": "electron tp4/main.js"
   },
   "author": "",
   "license": "ISC",
